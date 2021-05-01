@@ -24,20 +24,48 @@ connection.once("open", () => {
     console.log("Mongodb Connection success!");
 })
 
+//Room
+const roomRoutes= require('./routes/room');
+
+app.use('uploads',express.static('uploads'))
+app.use(roomRoutes);
+
+//Employee
+const empRouter = require("./routes/employees");
+
+//Booking
+const reservationRouter = require("./routes/Booking.js")
+
+//Employee
+app.use("/employee", empRouter)
+
+//Booking
+app.use("/booking",reservationRouter);
+
+//Ordering
 const foodOrderRouter = require("./routes/foodOrdering");
 
-//when calling the student url, load student.js file which is assigned for the studentRouter variable
 app.use("/foodOrdering", foodOrderRouter);
 
 const menuOrderRouter = require("./routes/menuOrdering");
 
-//when calling the student url, load student.js file which is assigned for the studentRouter variable
 app.use("/menuOrdering", menuOrderRouter);
 
 const beverageOrderRouter = require("./routes/beverageOrdering");
 
-//when calling the student url, load student.js file which is assigned for the studentRouter variable
 app.use("/beverageOrdering", beverageOrderRouter);
+
+//Suppliers
+const supplierRouter = require("./routes/suppliers");
+app.use("/supplier", supplierRouter);
+
+const itemRouter = require("./routes/items");
+app.use("/item", itemRouter);
+
+//inventory
+const inventoryRouter = require("./routes/inventorys.js");
+app.use("/inventory",inventoryRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 })
